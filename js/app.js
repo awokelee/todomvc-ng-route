@@ -162,7 +162,25 @@
 			return count;
 		};
 
-
+		// 8 显示不同状态的任务
+		// 8.1 任务有三种状态：全部、未完成、已完成
+		// 	单击不同的任务状态，会展示出当前任务状态对应的任务
+		// 8.2 单击哪个任务状态，就给当前元素添加类（selected）
+		// 
+		// 我们通过 过滤器 来实现这个功能！！！
+		vm.selectedStatus = { isCompleted: undefined };
+		vm.selectAll = function() {
+			// vm.selectedStatus.isCompleted = undefined;
+			vm.selectedStatus = { isCompleted: undefined };
+		};
+		vm.selectActive = function() {
+			// vm.selectedStatus.isCompleted = false;
+			vm.selectedStatus = { isCompleted: false };
+		};
+		vm.selectCompleted = function() {
+			// vm.selectedStatus.isCompleted = true;
+			vm.selectedStatus = { isCompleted: true };
+		};
 
 	}
 })(window);
