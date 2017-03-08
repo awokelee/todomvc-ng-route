@@ -78,8 +78,30 @@
 		};
 		// 敲回车保存内容
 		vm.update = function() {
+			// editId 与 task.id 不同，那么就不会再添加 editing 类
 			vm.editId = 0;
 		};
+
+		// 5 切换任务选中状态(单个或批量)
+		// 思路：只要 allChecked 属性的值变化了，就修改任务列表中所有的数据
+		// 其他方式：监视 allChecked 的变化
+		vm.allChecked = false;
+		vm.checkAll = function() {
+			// 修改 taskList 中所有项的 isCompleted 属性的值
+			// 改为与 allChecked 的值相同！！！
+			vm.taskList.forEach(function( task ) {
+				task.isCompleted = vm.allChecked;
+			});
+		};
+
+
+
+
+
+
+
+
+
 
 
 	}
