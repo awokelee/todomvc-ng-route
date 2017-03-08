@@ -54,5 +54,18 @@
 			// 清空文本框内容
 			vm.newTask = '';
 		};
+
+		// 3 删除一条任务
+		// 3.1 根据当前项的id 从列表中删除数据
+		vm.remove = function( id ) {
+			// console.log(id)
+			for(var i = 0; i < vm.taskList.length; i++) {
+				if(vm.taskList[i].id === id) {
+					// splice(i, 1) 就是从数组中删除一条数据, 然后改变的也是当前数组!!!
+					vm.taskList.splice(i, 1);
+				}
+			}
+		}
+
 	}
 })(window);
