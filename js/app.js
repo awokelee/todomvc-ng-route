@@ -146,7 +146,21 @@
 		};
 
 
+		// 7 显示未完成任务数
+		// 思路：在页面中通过 ng-bind="getUnCompleted()" 显示未完成任务数，
+		// 只要数据发生变化了，angular就会自动调用 getUnCompleted 函数，那么
+		// 这个函数只需要统计未完成任务数，并且作为返回值返回即可！
+		vm.getUnCompleted = function() {
+			var count = 0;
 
+			vm.taskList.forEach(function( task ) {
+				if( !task.isCompleted ) {
+					count++;
+				}
+			});
+
+			return count;
+		};
 
 
 
