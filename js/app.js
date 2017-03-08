@@ -67,5 +67,20 @@
 			}
 		}
 
+		// 4 修改任务
+		// 4.1 给每一项绑定双击事件 ng-dblclick
+		// 4.2 双击后,会给当前元素添加一个: editing
+		// 4.3 展示出文本框以后, 要讲当前项的名称, 展示出来
+		vm.editId = 0;
+		vm.edit = function( id ) {
+			// 双击元素, 就让 editId 变为 当前 id
+			vm.editId = id;
+		};
+		// 敲回车保存内容
+		vm.update = function() {
+			vm.editId = 0;
+		};
+
+
 	}
 })(window);
