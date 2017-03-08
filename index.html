@@ -14,7 +14,10 @@
   <section class="todoapp">
     <header class="header">
       <h1>todos</h1>
-      <input class="new-todo" placeholder="What needs to be done?" autofocus>
+      <!-- 利用 form 表单的特性: 回车键触发表单提交!!! -->
+      <form ng-submit="add()">
+        <input class="new-todo" placeholder="What needs to be done?" autofocus ng-model="newTask">
+      </form>
     </header>
     <!-- This section should be hidden by default and shown when there are todos -->
     <section class="main">
