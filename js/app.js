@@ -94,10 +94,43 @@
 			});
 		};
 
+		// 6 清除已完成任务
+		// 6.1 Clear completed 按钮的展示和隐藏由：列表中是否具有已完成的任务来确定
+		// 	如果有已完成的任务，那么就显示按钮
+		// 	如果没有已完成的任务，就隐藏按钮
+		// 	ng-show / ng-hide
+		// 6.2 点击 清除按钮 后，会把任务列表中，所有已完成的任务删除
+		vm.clearAll = function() {
+			// 问题：删除数组中的元素的时候，可能会存在一些删除不掉的问题
+			// 我们现在要把 任务列表 中，所有的已完成的任务删除掉，
+			// 反过来想，也就是把未完成的任务保留起来
+			var temp = [];
+			for(var i = 0; i < vm.taskList.length; i++) {
+				if( !vm.taskList[i].isCompleted ) {
+					temp.push( vm.taskList[i] );
+				}
+			}
 
+			// 将所有未完成的任务列表，赋值为：vm.taskList 这样，数据就会发生变化
+			// 页面结构就会自动同步这个变化！ 
+			vm.taskList = temp;
+		};
 
+		// 这个值用来控制 清除按钮 的展示和隐藏状态
+		// 设置初始值，这句代码只会执行一次！！！
+		vm.isShow = false; 
+		vm.$watch('taskList', function(newValue, oldValue) {
+			var temp = false;
 
+			for(var i = 0; i < vm.taskList.length; i++) {
+				if( vm.taskList[i].isCompleted ) {
+					temp = true;
+					break;
+				}
+			}
 
+			vm.isShow = temp;
+		}, true);
 
 
 
