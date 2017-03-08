@@ -60,7 +60,14 @@
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
-      <button class="clear-completed" ng-click="clearAll()" ng-show="isShow">Clear completed</button>
+      <!-- isShow 用来控制当前按钮的展示和隐藏 通过监视数据变化实现 -->
+      <!-- <button class="clear-completed" ng-click="clearAll()" ng-show="isShow">Clear completed</button> -->
+
+      <!-- 对于某些指令来说，比如：ng-show，如果它的值是一个函数，那么只要数据变化了，
+      angular就会重新调用该函数！！！
+      注意：只有出现在页面中的表达式或指令才会在数据变化时被重新执行！！！
+       -->
+      <button class="clear-completed" ng-click="clearAll()" ng-show="isShow()">Clear completed</button>
     </footer>
   </section>
   <footer class="info">

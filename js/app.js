@@ -118,7 +118,7 @@
 
 		// 这个值用来控制 清除按钮 的展示和隐藏状态
 		// 设置初始值，这句代码只会执行一次！！！
-		vm.isShow = false; 
+		/*vm.isShow = false;
 		vm.$watch('taskList', function(newValue, oldValue) {
 			var temp = false;
 
@@ -130,7 +130,20 @@
 			}
 
 			vm.isShow = temp;
-		}, true);
+		}, true);*/
+		// 是要数据发生变化，该函数就会被重新执行
+		vm.isShow = function() {
+			var temp = false;
+
+			for(var i = 0; i < vm.taskList.length; i++) {
+				if( vm.taskList[i].isCompleted ) {
+					temp = true;
+					break;
+				}
+			}
+
+			return temp;
+		};
 
 
 
