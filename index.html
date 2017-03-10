@@ -52,13 +52,13 @@
       <ul class="filters">
         <li>
           <!-- 操作类，需要通过 ng-clas 来实现 -->
-          <a ng-class="{selected: selectedStatus.isCompleted === undefined}" href="#/" ng-click="selectAll()">All</a>
+          <a ng-class="{selected: selectedStatus.isCompleted === undefined}" href="#/">All</a>
         </li>
         <li>
-          <a ng-class="{selected: selectedStatus.isCompleted === false}" href="#/active" ng-click="selectActive()">Active</a>
+          <a ng-class="{selected: selectedStatus.isCompleted === false}" href="#/active">Active</a>
         </li>
         <li>
-          <a ng-class="{selected: selectedStatus.isCompleted === true}" href="#/completed" ng-click="selectCompleted()">Completed</a>
+          <a ng-class="{selected: selectedStatus.isCompleted === true}" href="#/completed">Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->
@@ -82,6 +82,10 @@
   <script src="node_modules/angular/angular.js"></script>
   <!-- 引入自己的js文件 -->
   <script src="js/app.js"></script>
+  <!-- 引入数据服务模块 -->
+  <script src="js/dataService.js"></script>
+  <!-- 引入控制器模块 -->
+  <script src="js/controller.js"></script>
 </body>
 
 </html>
