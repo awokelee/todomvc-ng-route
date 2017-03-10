@@ -6,54 +6,35 @@ angular
 	.module('todoApp.controller', [])
 	.controller('TodoController', ['$scope', '$location', 'DataService', TodoController]);
 
-
 	// 控制器函数
 	function TodoController($scope, $location, DataService) {
 		// 定义一个变量 vm，这个变量就是对 $scope 的引用！！！
 		var vm = $scope;
 
 		// 1 展示任务列表
-		var taskList = [
-			{id: 1, name: '抽烟', isCompleted: false},
-			{id: 2, name: '喝酒', isCompleted: true},
-			{id: 3, name: '汤头', isCompleted: false}
-		];
-
-		vm.taskList = taskList;
+		vm.taskList = DataService.getData();
 
 		// 2 添加任务
 		vm.newTask = '';
 		vm.add = function() {
-			// 只需要往 taskList 数组中添加一条数据, 就可以, 页面结构会自动改变!
 			if(vm.newTask.trim() === '') {
 				return;
 			}
 
-			// 根据数组中最后一项的id, 再加1 获取到当前id
-			var id, len = vm.taskList.length;
-			if( len === 0 ) {
-				id = 1;
-			} else {
-				// vm.taskList[len - 1] 取数组最后一项的值
-				id = vm.taskList[len - 1].id + 1;
-			}
-
-			// 添加任务, 并且默认任务状态为: 未完成
-			vm.taskList.push({id: id, name: vm.newTask, isCompleted: false});
+			// 调用保存数据的方法
+			DataService.setData( vm.newTask );
 
 			// 清空文本框内容
 			vm.newTask = '';
+			// 因为新添加的任务都是没有完成的
+			vm.allChecked = false;
 		};
 
 		// 3 删除一条任务
 		vm.remove = function( id ) {
-			// console.log(id)
-			for(var i = 0; i < vm.taskList.length; i++) {
-				if(vm.taskList[i].id === id) {
-					vm.taskList.splice(i, 1);
-				}
-			}
-		}
+			DataService.remove( id );
+		};
+		// vm.remove = DataService.remove;
 
 		// 4 修改任务
 		vm.editId = 0;
@@ -63,53 +44,49 @@ angular
 		// 敲回车保存内容
 		vm.update = function() {
 			vm.editId = 0;
+
+			// 保存数据
+			DataService.save();
 		};
 
 		// 5 切换任务选中状态(单个或批量)
-		vm.allChecked = false;
+		// 因为单选切换任务的状态，也是修改了数据，所以，单选功能也需要保存数据！！
+		vm.toggleItem = function() {
+			// 每一次修改单个任务状态，都来判断是否需要将全选按钮选中
+			vm.allChecked = DataService.allChecked();
+
+			// 选中状态切换以后，是需要将数据进行保存的！！！
+			// 只要调用save方法，就能够将数据保存到 localStorage
+			DataService.save();
+		};
+
+		// 使用 方法 来代替 属性，这样数据变化的时候，
+		// 这个方法就会被重新调用，用来控制当前的选中状态
+		// vm.allChecked = false;
+		vm.allChecked = DataService.allChecked();
+
+		// 通过全选按钮控制所有任务项的选中状态
 		vm.checkAll = function() {
-			vm.taskList.forEach(function( task ) {
-				task.isCompleted = vm.allChecked;
-			});
+			DataService.checkAll( vm.allChecked );
 		};
 
 		// 6 清除已完成任务
 		vm.clearAll = function() {
-			var temp = [];
-			for(var i = 0; i < vm.taskList.length; i++) {
-				if( !vm.taskList[i].isCompleted ) {
-					temp.push( vm.taskList[i] );
-				}
-			}
+			DataService.clearAll();
 
-			vm.taskList = temp;
+			// 因为 DataService.clearAll 方法中，重新修改了
+			// this.taskList 的指向，所以，需要重新获取数据
+			// vm.taskList = DataService.getData();
 		};
 
 		vm.isShow = function() {
-			var temp = false;
-
-			for(var i = 0; i < vm.taskList.length; i++) {
-				if( vm.taskList[i].isCompleted ) {
-					temp = true;
-					break;
-				}
-			}
-
-			return temp;
+			return DataService.isShow();
 		};
 
 
 		// 7 显示未完成任务数
 		vm.getUnCompleted = function() {
-			var count = 0;
-
-			vm.taskList.forEach(function( task ) {
-				if( !task.isCompleted ) {
-					count++;
-				}
-			});
-
-			return count;
+			return DataService.getUnCompleted();
 		};
 
 		// 8 显示不同状态的任务
