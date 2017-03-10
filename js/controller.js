@@ -3,11 +3,23 @@
 (function(angular) {
 
 angular
-	.module('todoApp.controller', [])
-	.controller('TodoController', ['$scope', '$location', 'DataService', TodoController]);
+	.module('todoApp.controller', ['ngRoute'])
+	// 配置路由
+	.config(['$routeProvider',function($routeProvider) {
+		
+		$routeProvider.when('/:status?', {
+			// templateUrl: 'todoView',
+			templateUrl: './views/todo.html',
+			controller: 'TodoController'
+		})
+
+
+	}])
+	.controller('TodoController', ['$scope', '$routeParams', 'DataService', TodoController]);
 
 	// 控制器函数
-	function TodoController($scope, $location, DataService) {
+	function TodoController($scope, $routeParams, DataService) {
+		// 注意：只要是路由发生了变化，那么控制器中的代码就要重新执行一次！！！
 		// 定义一个变量 vm，这个变量就是对 $scope 的引用！！！
 		var vm = $scope;
 
@@ -88,24 +100,24 @@ angular
 		vm.getUnCompleted = function() {
 			return DataService.getUnCompleted();
 		};
-
+		
 		// 8 显示不同状态的任务
 		vm.selectedStatus = { isCompleted: undefined };
-		vm.location = $location;
-		vm.$watch('location.url()', function(newValue, oldValue) {
-			switch( newValue ) {
-				case '/':
-					vm.selectedStatus = { isCompleted: undefined };
-					break;
-				case '/active':
-					vm.selectedStatus = { isCompleted: false };
-					break;
-				case '/completed':
-					vm.selectedStatus = { isCompleted: true };
-					break;
-			}
+		console.log($routeParams);
 
-		});}
+		switch ($routeParams.status) {
+			case 'active':
+				vm.selectedStatus = { isCompleted: false };
+				break;
+			case 'completed':
+				vm.selectedStatus = { isCompleted: true };
+				break;
+			default:
+				vm.selectedStatus = { isCompleted: undefined };
+				break;
+		}
+
+	}
 
 
 

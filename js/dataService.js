@@ -70,6 +70,8 @@ angular
 		this.allChecked = function() {
 			var checked = true;
 
+			(this.taskList.length === 0) && (checked = false);
+
 			this.taskList.forEach(function( task ) {
 				if( !task.isCompleted ) {
 					checked = false;
