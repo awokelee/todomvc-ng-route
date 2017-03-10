@@ -8,91 +8,19 @@
   <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
   <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 </head>
-
 <!-- 指定 todoApp 模块 -->
+
 <body ng-app="todoApp">
   <section class="todoapp" ng-view></section>
-
   <footer class="info">
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="http://todomvc.com">itcast</a></p>
     <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
   </footer>
-  
-  <!-- 路由的视图模版 -->
-  <!-- <script type="text/ng-template" id="todoView">
-    
-    <header class="header">
-      <h1>todos</h1>
-      利用 form 表单的特性: 回车键触发表单提交!!!
-      <form ng-submit="add()">
-        <input class="new-todo" placeholder="What needs to be done?" autofocus ng-model="newTask">
-      </form>
-    </header>
-    This section should be hidden by default and shown when there are todos
-    <section class="main">
-  
-      <input class="toggle-all" type="checkbox" ng-model="allChecked" ng-change="checkAll()">
-      <label for="toggle-all">Mark all as complete</label>
-      <ul class="todo-list">
-        List items should get the class `editing` when editing and `completed` when marked as completed
-        task 就是任务列表中的每一个任务！！！
-        ng-repeat 指令的优先级比 ng-class 指令的优先级要高, ,所以先解析 ng-repeat
-        selectedStatus 是不同状态任务的过滤条件
-        <li ng-class="{completed: task.isCompleted, editing: task.id === editId}" ng-repeat="task in taskList | filter: selectedStatus track by $index">
-          <div class="view">
-            <input class="toggle" type="checkbox" ng-model="task.isCompleted" ng-change="toggleItem()">
-            <label ng-bind="task.name" ng-dblclick="edit(task.id)"></label>
-            因为每个任务项都有自己的id, ,所以, 在遍历的时候, 就直接获取到当前id
-                 并且传给 remove 方法, 将来触发 单击事件的时候, 就会把当前项的id, 传到
-                 方法内部去, 这样就能够获取到 id 值了!!!
-            <button class="destroy" ng-click="remove(task.id)"></button>
-          </div>
-          <form ng-submit="update()">
-            <input class="edit" ng-model="task.name">
-          </form>
-        </li>
-      </ul>
-    </section>
-    This footer should hidden by default and shown when there are todos
-    <footer class="footer">
-      This should be `0 items left` by default
-      <span class="todo-count"><strong ng-bind="getUnCompleted()"></strong> item left</span>
-      Remove this if you don't implement routing
-      <ul class="filters">
-        <li>
-          操作类，需要通过 ng-clas 来实现
-          <a ng-class="{selected: selectedStatus.isCompleted === undefined}" href="#/">All</a>
-        </li>
-        <li>
-          <a ng-class="{selected: selectedStatus.isCompleted === false}" href="#/active">Active</a>
-        </li>
-        <li>
-          <a ng-class="{selected: selectedStatus.isCompleted === true}" href="#/completed">Completed</a>
-        </li>
-      </ul>
-      Hidden if no completed items are left ↓
-      isShow 用来控制当前按钮的展示和隐藏 通过监视数据变化实现
-      <button class="clear-completed" ng-click="clearAll()" ng-show="isShow">Clear completed</button>
-  
-      对于某些指令来说，比如：ng-show，如果它的值是一个函数，那么只要数据变化了，
-      angular就会重新调用该函数！！！
-      注意：只有出现在页面中的表达式或指令才会在数据变化时被重新执行！！！
-      <button class="clear-completed" ng-click="clearAll()" ng-show="isShow()">Clear completed</button>
-    </footer>
-    
-  </script> -->
-
-  <!-- 引入angularjs文件 -->
-  <script src="node_modules/angular/angular.js"></script>
-  <!-- 引入路由js -->
-  <script src="node_modules/angular-route/angular-route.js"></script>
-  <!-- 引入自己的js文件 -->
-  <script src="js/app.js"></script>
-  <!-- 引入数据服务模块 -->
-  <script src="js/dataService.js"></script>
-  <!-- 引入控制器模块 -->
-  <script src="js/controller.js"></script>
 </body>
-
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script src="js/app.js"></script>
+<script src="js/dataService.js"></script>
+<script src="js/controller.js"></script>
 </html>
